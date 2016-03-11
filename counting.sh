@@ -9,7 +9,7 @@ SOMA=0
 for contribuidor in $_30CONTRIBS_PHPX_CONTRIBUTORS;
 do
     # echo $contribuidor
-    url="https://api.github.com/search/issues?q=author:${contribuidor}+type:pr+created:2016-03-01T00:00:00-03:00..2016-03-11T23:59:59-03:00"
+    url="https://api.github.com/search/issues?q=author:${contribuidor}+type:pr+created:2016-03-01T00:00:00-03:00..2016-03-13T23:59:59-03:00"
     #echo $url
     #echo curl -Ss -i -H 'Authorization: token $GITHUB_TOKEN' $url | jq '.total_count'
     contribs=`curl -Ss -u $_30CONTRIBS_PHPX_GITHUB_USER:$_30CONTRIBS_PHPX_GITHUB_TOKEN $url | jq '.total_count'`
