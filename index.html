@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>#30contribs/phpx - Consulte suas contribuições para a ação</title>
+  <meta name="description" content="#30contribs/phpx - Consulte suas contribuições para a ação" />
+  <meta itemprop="name" content="#30contribs">
+  <meta itemprop="description" content="#30contribs/phpx - Consulte suas contribuições para a ação">
+  <meta property="og:name" content="#30contribs">
+  <meta property="og:description" content="#30contribs/phpx - Consulte suas contribuições para a ação">
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    body * {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    .wrapper {
+      width: calc(700px + 2em);
+      margin: 2em auto 0;
+    }
+    p a {
+      color: #d84305;
+    }
+    input, textarea, select, iframe {
+      display: inline-block;
+      vertical-align: top;
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 0.4em;
+      outline: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+      background: none;
+    }
+    .container {
+      display: inline-block;
+      vertical-align: top;
+      width: 350px;
+      float: left;
+      margin: 0 1em 0 0;
+    }
+    iframe {
+      padding: 0;
+    }
+    .template-1 {
+      border-color: #8e65a2;
+    }
+    .template-2 {
+      border-color: #5b82b8;
+    }
+    textarea {
+      min-height: 96px;
+    }
+  </style>
+</head>
+<body ng-controller="FieldCtrl">
+  <div class="wrapper">
+    <h1>Consulte suas contribuições para a ação #30contribs/phpx</h1>
+    <p><a href="https://github.com/30contribs/phpx2016">Repo no Github</a></p>
+    <div class="container">
+      <div>
+
+        <input type="text" name="githubUser" ng-model="githubUser" value="" placeholder="Seu usuário no GitHub" />
+        <button ng-click="loadPullRequests()">Consultar seus Pull Requests</button>
+
+      </div>
+    </div>
+    <div class="container">
+      <iframe id="iframe" ng-src="{{githubSearchPage}}" sandbox="allow-same-origin allow-scripts"></iframe>
+    </div>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-sanitize.min.js"></script>
+  <script>
+    var iframe = document.getElementById('iframe');
+    var angularapp = angular.module('myApp', ['ngSanitize']);
+    angularapp.controller('FieldCtrl', function ($scope, $sce) {
+      var iframeclass = '';
+      $scope.loadPullRequests = function() {
+        if ($scope.githubUser.length > 0) {
+            // add a class of which template we are in
+            iframeclass = $scope.githubUser;
+            iframe.classList.add(iframeclass);
+            $scope.githubSearchPage = $sce.trustAsResourceUrl(
+                "https://github.com/search?utf8=%E2%9C%93&q=author%3A" + iframeclass + "+type%3Apr+created%3A2016-03-01T00%3A00%3A00-03%3A00..2016-03-11T23%3A59%3A59-03%3A00&type=Issues&ref=searchresults");
+        } else {
+            iframe.classList.remove(iframeclass);
+        }
+      };
+    });
+
+  </script>
+</body>
+</html>
