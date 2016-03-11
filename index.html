@@ -62,14 +62,12 @@
     <p><a href="https://github.com/30contribs/phpx2016">Repo no Github</a></p>
     <div class="container">
       <div>
-
-        <input type="text" name="githubUser" ng-model="githubUser" value="" placeholder="Seu usuário no GitHub" />
-        <button ng-click="loadPullRequests()">Consultar seus Pull Requests</button>
+        <form name="form" novalidate>
+          <input type="text" name="githubUser" ng-model="githubUser" value="" placeholder="Seu usuário no GitHub" required=""/>
+          <button ng-click="loadPullRequests()">Consultar seus Pull Requests</button>
+        </form>
 
       </div>
-    </div>
-    <div class="container">
-      <iframe id="iframe" ng-src="{{githubSearchPage}}" sandbox="allow-same-origin allow-scripts"></iframe>
     </div>
   </div>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
@@ -80,14 +78,11 @@
     angularapp.controller('FieldCtrl', function ($scope, $sce) {
       var iframeclass = '';
       $scope.loadPullRequests = function() {
-        if ($scope.githubUser.length > 0) {
+        if ("undefined" != typeof $scope.githubUser && $scope.githubUser.length > 0) {
             // add a class of which template we are in
             iframeclass = $scope.githubUser;
-            iframe.classList.add(iframeclass);
-            $scope.githubSearchPage = $sce.trustAsResourceUrl(
-                "https://github.com/search?utf8=%E2%9C%93&q=author%3A" + iframeclass + "+type%3Apr+created%3A2016-03-01T00%3A00%3A00-03%3A00..2016-03-11T23%3A59%3A59-03%3A00&type=Issues&ref=searchresults");
-        } else {
-            iframe.classList.remove(iframeclass);
+            var githubUrl = "https://github.com/search?utf8=%E2%9C%93&q=author%3A" + $scope.githubUser + "+type%3Apr+is%3Apublic+created%3A2016-03-01T00%3A00%3A00-03%3A00..2016-03-11T23%3A59%3A59-03%3A00&type=Issues&ref=30contribs";
+            window.open(githubUrl, '_blank')
         }
       };
     });
