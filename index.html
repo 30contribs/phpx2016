@@ -40,6 +40,10 @@
 
   <div class="about">
     <div class="container">
+      <span ng-show="data">Você está concorrendo com {{data.total_count}} tickets</span>
+      <ul ng-repeat="item in data.items">
+        <li><a href="{{item.html_url}}" target="_blank"> {{item.title}} </a></li>
+      </ul>
       <h1>Sobre</h1>
 
       <p>
@@ -53,11 +57,17 @@
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-sanitize.min.js"></script>
   <script>
-    var iframe = document.getElementById('iframe');
     var angularapp = angular.module('myApp', ['ngSanitize']);
+    angularapp.controller('FieldCtrl', function ($scope, $http) {
     angularapp.controller('FieldCtrl', function ($scope, $sce) {
       var iframeclass = '';
       $scope.loadPullRequests = function() {
+        if ($scope.githubUser.length > 0) {
+          // add a class of which template we are in
+          iframeclass = $scope.githubUser;
+          $http.get('https://api.github.com/search/issues?q=author:' + iframeclass + '+type:pr+created:2016-03-01T00:00:00-03:00..2016-03-11T23:59:59-03:00').then(function(data) {
+            $scope.data = data.data;
+          });
         if ("undefined" != typeof $scope.githubUser && $scope.githubUser.length > 0) {
             // add a class of which template we are in
             iframeclass = $scope.githubUser;
