@@ -1,71 +1,100 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
-<head>
-  <meta charset="UTF-8">
-  <title>#30contribs/phpx2016 - Consulte suas contribuições para a ação</title>
-  <meta name="description" content=" - Consulte suas contribuições para a ação" />
-  <meta itemprop="name" content="#30contribs">
-  <meta itemprop="description" content="#30contribs/phpx2016 - Consulte suas contribuições para a ação">
-  <meta property="og:name" content="#30contribs">
-  <meta property="og:description" content="#30contribs/phpx2016 - Consulte suas contribuições para a ação">
-  <link rel="icon" href="favicon.ico">
-
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-  <!-- style CSS -->
-  <link href="style.css" rel="stylesheet">
-</head>
-<body ng-controller="FieldCtrl">
-  <div class="presentation">
-    <div class="container">
-
-      <div class="title">
-        <h1>Consulte suas contribuições para a ação #30contribs/phpx2016</h1>
-        <p><a href="https://github.com/30contribs/phpx2016" class="link">Github</a></p>
-      </div>
-
-      <div class="form">
-        <form name="form" novalidate>
-          <p>
-            <input type="text" name="githubUser" ng-model="githubUser" value="" placeholder="Seu usuário no GitHub" required=""/>
-          </p>
-          <p>
-            <button ng-click="loadPullRequests()" class="btn btn-default">Consultar seus Pull Requests</button>
-          </p>
-        </form>
+<html ng-app="myApp" lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="#30contribs/phpx2016 - Consulte suas contribuições para a ação" />
+    <meta itemprop="name" content="#30contribs">
+    <meta itemprop="description" content="#30contribs/phpx2016 - Consulte suas contribuições para a ação">
+    <meta property="og:name" content="#30contribs">
+    <meta property="og:description" content="#30contribs/phpx2016 - Consulte suas contribuições para a ação">
+    <link rel="icon" href="favicon.ico">
+    <title>#30contribs/phpx2016 - Consulte suas contribuições para a ação</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- style CSS -->
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body ng-controller="FieldCtrl">
+    <div class="presentation">
+      <div class="container">
+        <div class="title">
+          <h1>Consulte suas contribuições para a ação #30contribs/phpx2016</h1>
+        </div>
+        <div class="form">
+          <form name="form" novalidate>
+            <p>
+              <input type="text" name="githubUser" ng-model="githubUser" value="" placeholder="Seu usuário no GitHub" required=""/>
+            </p>
+            <p>
+              <button ng-click="loadPullRequests()" class="btn btn-success" data-toggle="modal" data-target="#basicModal">Consultar seus Pull Requests</button>
+              <button ng-click="seeInGithub()" class="btn btn-default">Veja no GitHub</button>
+              <a href="https://github.com/30contribs/phpx2016/wiki" class="btn btn-info">Saiba mais</a>
+            </p>
+          </form>
+        </div>
+        <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>#30contribs/phpx</h3>
+              </div>
+              <div class="modal-body">
+                <h4 ng-show="data">Cada PR dá direito a um tíquete. Você tem {{data.total_count}}:</h4>
+                <ul ng-repeat="item in data.items" class="list-unstyled">
+                  <li><a href="{{item.html_url}}" target="_blank" class="btn btn-default btn-xs btn-block btn-responsive"> {{item.title}} </a></li>
+                </ul>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal">Fechar</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-  <div class="about">
-    <div class="container">
-      <h1>Sobre</h1>
-
-      <p>
-        <span class="about-me-span">
-          O Hussani Oliveira (<a href="https://github.com/hussani">https://github.com/hussani</a>) e o Rogerio Prado de Jesus (<a href="https://github.com/rogeriopradoj">https://github.com/rogeriopradoj</a>), evangelistas do PHPSP (<a href="http://phpsp.org.br/">http://phpsp.org.br/</a>), querem incentivar mais pessoas a contribuir com projetos open source, na pegada do #30contribs e do saudoso #SouPHPSP!
-        </span>
-      </p>
+    <div class="about">
+      <div class="container">
+        <h2>Sobre o #30contribs/phpx2016</h2>
+        <p>O Hussani Oliveira (<a href="https://github.com/hussani">https://github.com/hussani</a>) e o Rogerio Prado de Jesus (<a href="https://github.com/rogeriopradoj">https://github.com/rogeriopradoj</a>), evangelistas do PHPSP (<a href="http://phpsp.org.br/">http://phpsp.org.br/</a>), querem incentivar mais pessoas a contribuir com projetos open source, na pegada do #30contribs e do saudoso #SouPHPSP!</p>
+        <hr>
+        <p>Quer saber mais? <a href="https://github.com/30contribs/phpx2016/wiki">Acesse a wiki!</a></p>
+      </div>
     </div>
-  </div>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-sanitize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script>
+      var angularapp = angular.module('myApp', ['ngSanitize']);
+      angularapp.controller('FieldCtrl', function ($scope, $http) {
+        var period = '2016-03-01T00:00:00-03:00..2016-03-13T23:59:59-03:00';
+        var baseurlApi = 'https://api.github.com/search/issues?';
+        var baseurlSearch = 'https://github.com/search?utf8=✓&ref=30contribs&';
+        $scope.loadPullRequests = function() {
+          if ("undefined" != typeof $scope.githubUser && $scope.githubUser.length > 0) {
+            var urlApi = baseurlApi
+            + 'q=author:' + $scope.githubUser
+            + '+created:' + period
+            + '+type:pr+is:public';
+            $http.get(urlApi).then(function(data) {
+              $scope.data = data.data;
+            });
+          }
+        };
+        $scope.seeInGithub = function() {
+          if ("undefined" != typeof $scope.githubUser && $scope.githubUser.length > 0) {
+            var githubUrl = baseurlSearch
+            + 'q=author:' + $scope.githubUser
+            + '+created:' + period
+            + '+type:pr+is:public';
 
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.16/angular-sanitize.min.js"></script>
-  <script>
-    var iframe = document.getElementById('iframe');
-    var angularapp = angular.module('myApp', ['ngSanitize']);
-    angularapp.controller('FieldCtrl', function ($scope, $sce) {
-      var iframeclass = '';
-      $scope.loadPullRequests = function() {
-        if ("undefined" != typeof $scope.githubUser && $scope.githubUser.length > 0) {
-            // add a class of which template we are in
-            iframeclass = $scope.githubUser;
-            var githubUrl = "https://github.com/search?utf8=%E2%9C%93&q=author%3A" + $scope.githubUser + "+type%3Apr+is%3Apublic+created%3A2016-03-01T00%3A00%3A00-03%3A00..2016-03-13T23%3A59%3A59-03%3A00&type=Issues&ref=30contribs";
-            window.open(githubUrl, '_blank')
-        }
-      };
-    });
-  </script>
-</body>
+            window.open(githubUrl, '_blank');
+          }
+        };
+      });
+    </script>
+  </body>
 </html>
