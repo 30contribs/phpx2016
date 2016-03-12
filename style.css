@@ -15,6 +15,16 @@ body {
   min-height: 615px;
 }
 
+.presentation .modal {
+  text-shadow: none !important;
+  color: initial;
+}
+
+.btn-responsive {
+    white-space: normal !important;
+    word-wrap: break-word;
+}
+
 .link {
   font-size: 16px;
 }
